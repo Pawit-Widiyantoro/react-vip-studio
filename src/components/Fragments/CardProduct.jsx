@@ -15,11 +15,11 @@ const Header = ({image}) =>{
 }
 
 // card body
-const Body = ({title, children}) => {
+const Body = ({name, children}) => {
     return(
-        <div className="px-5 pb-5">
+        <div className="px-5 pb-5 h-full">
             <a href="">
-                <h5 className="text-xl font-semibold text-black tracking-tight">{title}</h5>
+                <h5 className="text-xl font-semibold text-black tracking-tight">{name}</h5>
                 <p className="text-m text-black">
                   {children}
                 </p>
@@ -43,7 +43,7 @@ const Footer = ({price}) => {
 // full card
 const CardProduct = ({children}) => {
     return (
-    <div className="w-full max-w-sm bg-gray-200 border border-gray-800 rounded-lg shadow mx-2">
+    <div className="w-full max-w-sm bg-gray-200 border border-gray-800 rounded-lg shadow mx-2 flex flex-col justify-between">
         {children}
     </div>
     )
