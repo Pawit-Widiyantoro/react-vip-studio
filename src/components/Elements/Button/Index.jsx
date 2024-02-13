@@ -3,14 +3,14 @@ import React from "react"
 const Button = (
     {classname = 'bg-black', 
     children = '...', 
-    onclick = () => {}, 
+    onClick = () => {}, 
     type='button'}
   ) => {
     return (
       <button 
-        className={`h-10 px-6 font-semibold rounded-md ${classname} children-white`} 
+        className={`h-10 px-6 font-semibold rounded-md ${classname} text-white`} 
         type={type}
-        onClick={() => onclick()}
+        onClick={onClick}
         >
         {children}
       </button>
