@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button/Index";
 
@@ -31,12 +31,24 @@ const email = localStorage.getItem('email');
 
 const ProductPage = () => {
 
-    const [cart, setCart] = useState([
-        {
-            id:'Jersey Ajax',
-            qty: 1,
-        },
-    ]);
+    const [cart, setCart] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    // parsing data from local storage
+    useEffect(() => {
+        setCart(JSON.parse(localStorage.getItem("cart")) || [] );
+    }, []);
+    // save data to local storage
+    useEffect(() => {
+        if(cart.length > 0){
+            const sum = cart.reduce((acc, item) => {
+                const product = products.find((product) => product.id === item.id);
+                return acc + product.price * item.qty;
+            }, 0);
+            setTotalPrice(sum);
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+    }, [cart]);
 
     // logout event handler
     const handleLogout = () => {
@@ -101,11 +113,11 @@ const ProductPage = () => {
                         <tbody>
                             {cart.map((item) => {
                                 const product = products.find((product) => product.id === item.id);
-                                if (!product) {
-                                    console.error(`Product with id ${item.id} not found`);
-                                    console.log(product)
-                                    return null;
-                                }
+                                // if (!product) {
+                                //     console.error(`Product with id ${item.id} not found`);
+                                //     console.log(product)
+                                //     return null;
+                                // }
                                 return (
                                     <tr key={item.id}>
                                         <td>{product.name}</td>
@@ -115,6 +127,11 @@ const ProductPage = () => {
                                     </tr>
                                 )
                             })}
+                            <tr>
+                                <td colSpan={3} > Total Price</td>
+                                <td>Rp. {(totalPrice).toLocaleString('id-ID', {styles:'currency', currency:'IDR'})}
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
