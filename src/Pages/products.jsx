@@ -18,9 +18,15 @@ const ProductPage = () => {
 
     // get data from Fake Store API
     useEffect(() => {
-        getProducts((data) => {
-            setProducts(data);
-        });
+        const fetchData = async () => {
+            try {
+                const data = await getProducts();
+                setProducts(data);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
+        fetchData();
     }, []);
 
     // save data to local storage

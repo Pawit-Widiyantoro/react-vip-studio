@@ -1,12 +1,11 @@
 import axios from "axios";
 
-export const getProducts = (callback) => {
-    axios
-        .get('https://fakestoreapi.com/products')
-        .then((res)=> {
-            callback(res.data);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-}
+export const getProducts = async () => {
+    try {
+        const response = await axios.get('https://fakestoreapi.com/products');
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        throw error; // Rethrow the error to be handled by the caller
+    }
+};
