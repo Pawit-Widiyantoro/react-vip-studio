@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button/Index";
 
@@ -74,6 +74,16 @@ const ProductPage = () => {
         }
     }
 
+    const totalpriceRef = useRef(null);
+
+    useEffect(() => {
+        if(cart.length>0){
+            totalpriceRef.current.style.display = 'table-row';
+        } else {
+            totalpriceRef.current.style.display = "none";
+        }
+    })
+
     return(
         <>
             <div className="bg-blue-600 text-white flex justify-end h-20 items-center px-5">
@@ -127,7 +137,7 @@ const ProductPage = () => {
                                     </tr>
                                 )
                             })}
-                            <tr>
+                            <tr ref={totalpriceRef} className="font-bold">
                                 <td colSpan={3} > Total Price</td>
                                 <td>Rp. {(totalPrice).toLocaleString('id-ID', {styles:'currency', currency:'IDR'})}
                                 </td>
