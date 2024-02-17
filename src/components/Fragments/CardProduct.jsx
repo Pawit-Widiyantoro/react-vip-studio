@@ -8,7 +8,7 @@ const Header = ({image}) =>{
         <img 
             src={image} 
             alt="ajax" 
-            className="p-8 rounded-t-lg" 
+            className="p-8 rounded-t-lg h-60 w-full object-cover" 
         />
     </a>
     )
@@ -19,9 +19,9 @@ const Body = ({name, children}) => {
     return(
         <div className="px-5 pb-5 h-full">
             <a href="">
-                <h5 className="text-xl font-semibold text-black tracking-tight">{name}</h5>
+                <h5 className="text-xl font-semibold text-black tracking-tight">{name.substring(0, 20)}...</h5>
                 <p className="text-sm text-black">
-                  {children}
+                  {children.substring(0, 100)}...
                 </p>
             </a>
         </div>
@@ -33,7 +33,7 @@ const Footer = ({price, handleAddtoCart, id}) => {
     return (
     <div className="flex item-center justify-between px-5 pb-5">
         <span className="text-xl font-bold text-black">
-            Rp. {price.toLocaleString('id-ID', {styles:'currency', currency:'IDR'})}
+            $ {price.toLocaleString('id-ID', {styles:'currency', currency:'USD'})}
         </span>
         <Button classname="bg-blue-600 text-white" onClick={() => handleAddtoCart(id)} >Add to Cart</Button>
     </div>
