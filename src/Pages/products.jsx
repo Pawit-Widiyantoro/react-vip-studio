@@ -2,18 +2,25 @@ import React, { useEffect, useRef, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button/Index";
 import { getProducts } from "../services/product.service";
+import { getUsername } from "../services/auth.service";
 
-const email = localStorage.getItem('email');
+const token = localStorage.getItem('token');
 
 const ProductPage = () => {
 
     const [cart, setCart] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [products, setProducts] = useState([]);
+    const [username, setUsername] = useState("");
 
     // parsing data from local storage
     useEffect(() => {
         setCart(JSON.parse(localStorage.getItem("cart")) || [] );
+    }, []);
+
+    // 
+    useEffect(() => {
+        setUsername(getUsername(token));
     }, []);
 
     // get data from Fake Store API
@@ -78,7 +85,7 @@ const ProductPage = () => {
     return(
         <>
             <div className="bg-blue-600 text-white flex justify-end h-20 items-center px-5">
-                {email}
+                {username}
                 <Button classname="ml-5 bg-black" onclick={handleLogout}>Logout</Button>
             </div>        
             <div className="flex justify-center py-5">
