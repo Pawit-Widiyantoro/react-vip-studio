@@ -3,24 +3,18 @@ import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button/Index";
 import { getProducts } from "../services/product.service";
 import { getUsername } from "../services/auth.service";
-
-const token = localStorage.getItem('token');
+import { useLogin } from "../hooks/useLogin";
 
 const ProductPage = () => {
 
     const [cart, setCart] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [products, setProducts] = useState([]);
-    const [username, setUsername] = useState("");
+    const username = useLogin();
 
     // parsing data from local storage
     useEffect(() => {
         setCart(JSON.parse(localStorage.getItem("cart")) || [] );
-    }, []);
-
-    // 
-    useEffect(() => {
-        setUsername(getUsername(token));
     }, []);
 
     // get data from Fake Store API
@@ -50,8 +44,7 @@ const ProductPage = () => {
 
     // logout event handler
     const handleLogout = () => {
-        localStorage.removeItem('email');
-        localStorage.removeItem('password');
+        localStorage.removeItem('token');
         window.location.href ='/login';
     }
 
@@ -86,7 +79,7 @@ const ProductPage = () => {
         <>
             <div className="bg-blue-600 text-white flex justify-end h-20 items-center px-5">
                 {username}
-                <Button classname="ml-5 bg-black" onclick={handleLogout}>Logout</Button>
+                <Button classname="ml-5 bg-black" onClick={handleLogout}>Logout</Button>
             </div>        
             <div className="flex justify-center py-5">
                 <div className="w-3/4 flex flex-wrap px-10">
@@ -138,7 +131,7 @@ const ProductPage = () => {
                                 )
                             })}
                             <tr ref={totalpriceRef} className="font-bold">
-                                <td colSpan={3} > Total Price</td>
+                                <td colSpan={3}> Total Price</td>
                                 <td>$ {(totalPrice).toLocaleString('id-ID', {styles:'currency', currency:'USD'})}
                                 </td>
                             </tr>
