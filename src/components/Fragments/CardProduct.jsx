@@ -1,16 +1,17 @@
 import React from "react";
 import Button from "../Elements/Button/Index";
+import { Link } from "react-router-dom";
 
 // card header
-const Header = ({image}) =>{
+const Header = ({id, image}) =>{
     return(
-    <a href="">
+    <Link to={`/product/${id}`}>
         <img 
             src={image} 
             alt="ajax" 
             className="p-8 rounded-t-lg h-60 w-full object-cover" 
         />
-    </a>
+    </Link>
     )
 }
 
